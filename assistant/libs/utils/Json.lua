@@ -1,3 +1,6 @@
+-- Json.lua: json.*
+-- Allows for parsing of .json files
+
 local json = {}
 
 -- Internal functions.

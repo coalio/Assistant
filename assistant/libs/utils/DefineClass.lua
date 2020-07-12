@@ -1,10 +1,14 @@
-local function set_class(name, property_types, arguments)
+-- DefineClass.lua: defineclass()
+-- Checks if all the arguments passed to class:new() are of an accepted type.
+-- Checks if required arguments (such as sheet's data) are missing
+
+return function(name, property_types, arguments)
   local next = next
   local o = {}
-  for vararg_index, vararg in pairs(arguments) do
+  for _, vararg in pairs(arguments) do
     if type(vararg) == 'table' then
       for _, required_arg in pairs(property_types['required']) do
-        if not vararg[required_arg] then
+        if not vararg[required_arg] and not o[required_arg] then
           error(required_arg .. ' is a required argument for ' .. name)
         end
       end
@@ -32,14 +36,9 @@ local function set_class(name, property_types, arguments)
         end
       end
     else
-      error('new() takes a table containing named arguments')
+      error('new() takes tables as named arguments')
     end
-  end --> Named arguments
+  end
   return o
 end
 
-local function argcheck(name, property_types, args)
-  print('argcheck')
-end
-
-return set_class

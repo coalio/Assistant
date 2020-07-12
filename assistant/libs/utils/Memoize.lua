@@ -1,3 +1,6 @@
+-- Memoize.lua: memoize.*
+-- Allows to store results in case they are required later
+
 local memoize = {}
 setmetatable(memoize, {__mode = "kv"})
 
