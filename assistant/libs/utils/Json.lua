@@ -1,5 +1,5 @@
 -- Json.lua: json.*
--- Allows for parsing of .json files
+-- Allows for parsing of .json strings
 
 local json = {}
 

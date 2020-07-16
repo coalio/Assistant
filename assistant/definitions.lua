@@ -1,9 +1,10 @@
+-----------------------------------------------------------------------------
 -- Collection of utilities used internally
-
--- path
+-----------------------------------------------------------------------------
+-- Used to shorten some path references when importing files
 PATH = function(at, to) return (at) .. "." .. to end
 BASE = function(at, to) return (at):match('(.-)[^%.]+$') .. to end
-
--- functions
+-----------------------------------------------------------------------------
+-- Functions used internally
 import = require(BASE(..., 'libs.utils.import'))
 rid = require(BASE(..., 'libs.utils.rid'))

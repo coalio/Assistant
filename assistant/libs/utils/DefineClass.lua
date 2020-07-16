@@ -1,6 +1,6 @@
--- DefineClass.lua: defineclass()
+-- DefineClass.lua: define_class(className, propertyTypes, namedArguments)
 -- Checks if all the arguments passed to class:new() are of an accepted type.
--- Checks if required arguments (such as sheet's data) are missing
+-- Checks if required arguments (such as { data }) are missing
 
 return function(name, property_types, arguments)
   local next = next

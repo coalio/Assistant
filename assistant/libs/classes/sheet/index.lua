@@ -1,9 +1,15 @@
 -- sheet.lua
--- Functions required by sheet
+-- Sheet functions
 
 return {
-  get_rows = require(BASE(..., 'get_rows')),
-  define_rows = require(BASE(..., 'define_rows')),
+  -- Internal
+  define_rows    = require(BASE(..., 'define_rows')),
   define_columns = require(BASE(..., 'define_columns')),
-  actions = require(BASE(..., 'actions'))
+  -- Public
+  at             = require(PATH(CLASS_PATH .. 'public', 'at')),
+  min            = require(PATH(CLASS_PATH .. 'public', 'min')),
+  max            = require(PATH(CLASS_PATH .. 'public', 'max')),
+  get_rows       = require(PATH(CLASS_PATH .. 'public', 'get_rows')),
+  reference      = require(PATH(CLASS_PATH .. 'public', 'reference')),
+  actions        = require(PATH(CLASS_PATH .. 'public.actions', 'index'))
 }

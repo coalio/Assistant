@@ -1,9 +1,12 @@
--- Utils
+-----------------------------------------------------------------------------
+-- Collection of utilities used internally
+-----------------------------------------------------------------------------
 
 return {
-  json = require(BASE(..., 'json')),
-  memoize = require(BASE(..., 'memoize')),
-  with = require(BASE(..., 'with')),
-  defineclass = require(BASE(..., 'defineclass')),
-  pointer = require(BASE(..., 'pointer'))
+  growtable   = require(BASE(..., 'growtable')),
+  json        = require(BASE(..., 'json')),
+  with        = require(BASE(..., 'with')),
+  pointer     = require(BASE(..., 'pointer')),
+  memoize     = require(BASE(..., 'memoize')),
+  defineclass = require(BASE(..., 'defineclass'))
 }
