@@ -43,7 +43,10 @@ local Sheet = {
     type = nil,
     before = nil,
     after = nil,
-    case = nil
+    case = nil,
+
+    at = nil,
+    getRows = nil
   },
 
   -- General
@@ -72,12 +75,24 @@ local property_types = {
 -----------------------------------------------------------------------------
 function Sheet:new(...)
   local newSheet = {}
+  local prototype = self['prototype']
   if arg[1] == 'raw' then
     newSheet = arg[2]
   else
     newSheet = define_class(self._name, property_types, {({...})[1]} )
   end
-  setmetatable(newSheet, {__index = self['prototype'], __mode = 'k'})
+  setmetatable(newSheet, {
+    __index = function(self, index)
+      if prototype[index] then return rawget(self.prototype, index) end
+      -- Syntactic sugar for at() function (datasheet['column:row'])
+      if (index:match("^(.+):(.+)")) then
+        local column_name = index:gsub(":.*", "")
+        local row_name = index:gsub("[^:]+:", "")
+        return self:at(column_name, row_name)
+      end  
+    end,
+    __mode = 'k'
+  })
 
   local rawrows = get_rows(newSheet.data)
   local row_pointers = (
