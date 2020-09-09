@@ -28,7 +28,7 @@ football = Sheet:new(
   {data = data},
   {
     columns = { 'year', 'team', 'wins', 'draws', 'losses' }, -- Order columns like this
-    rows = {'FC1', 'FC2', 'FC3', 'RM1', 'RM2', 'RM3', 'CF1', 'CF2', 'CF3'}
+    rows = {'FC1', 'FC2', 'FC3', 'RM1', 'RM2', 'RM3', 'CF1', 'CF2', 'CF3'} -- Order rows like this
   }
 )
 
@@ -37,15 +37,15 @@ newRow = {
   name = 'index',
   content = {}
 }
-for i = 1, #football.rows+1 do
+for i = 1, #football.rows do
   table.insert(newRow.content, i)
 end
 
-football:append(newRow.name,
-  newRow.content, 1
+football:append(
+  newRow.name,
+  newRow.content, 1 -- Append at position 1, that is, the first column
 )
 
--- Merge teams with wins
 -- Print the data
 print('Football table!\n')
 football(-1, -1, -1, {
@@ -53,4 +53,4 @@ football(-1, -1, -1, {
 }) -- football() is syntactic sugar for football:print()
 
 -- You can play with this example
--- Sheet size is 5x9 (6x9 after appending index)
+-- Sheet size is 5x9 (6x9 after appending column)

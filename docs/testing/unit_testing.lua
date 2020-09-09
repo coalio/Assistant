@@ -7,14 +7,12 @@ print -->
 Test ID:
 
 >> 1. nested_data_1.lua: indexing via labels (pointers)
->> 2. nested_data_2.lua: naming columns and indexing methods
->> 3. print_data_1.lua: naming and ordering data by labels, then displaying via print
->> 4. large_data_1.lua: test of performance against large datasets
+>> 2. print_data_1.lua: naming and ordering data by labels, then displaying via print
+>> 3. large_data_1.lua: test of performance against large datasets
 ]]
 
 Tests = {
   'nested_data_1.lua',
-  'nested_data_2.lua',
   'print_data_1.lua',
   'large_data_1.lua'
 }
@@ -172,23 +170,7 @@ end
 --[[  load: implemented until Lua 5.2 ]]
 DeclareInVersion("load", ("Lua 5.1"), (loadstring or load))
 --[[  unpack: removed in Lua 5.2 ]]
-DeclareInVersion("unpack", ("Lua 5.2+"), (table.unpack or unpack))
---[[  setfenv: removed in Lua 5.2 ]]
-DeclareInVersion("setfenv", ("Lua 5.2+"), function(fn, env)
-  for i = 1, math.huge do
-    local name = debug.getupvalue(fn, i)
-    if name == "_ENV" then
-      debug.upvaluejoin(fn, i, (function()
-        return env
-      end), 1)
-      break
-    elseif not name then
-      break
-    end
-  end
-
-  return fn
-end)
+DeclareInVersion("unpack", ("Lua 5.2"), (table.unpack or unpack))
 
 RunTest(unpack(SetForRun))
 
