@@ -35,7 +35,7 @@ and CURRENT_DIRECTORY:sub(#CURRENT_DIRECTORY, #CURRENT_DIRECTORY)=='>')
 
 CURRENT_DIRECTORY = ((
   (package.config:sub(1,1)==[[\]] and isDirPlaceholder) 
-  and io.popen"cd":read'*l') or CURRENT_DIRECTORY
+  and io.popen("cd"):read('*l')) or CURRENT_DIRECTORY
 ) 
 
 local assistant

@@ -1,0 +1,41 @@
+-----------------------------------------------------------------------------
+-- Conventions used when writing the source of Assistant
+-----------------------------------------------------------------------------
+
+All modules and classes classes should be listed in their respective folder and any
+functions that they own should be listed in their respective folder and in separate files
+	: (In example, Sheet.lua owns sheet/* files and subfolders)
+
+Public functions should be listed in a different folder than internal functions
+	: (In example, functions at sheet/ are internal, functions at sheet/public are public)
+
+Depending in the type, files containing functions/sections
+should include comments for each function/section
+
+1.  Single function files
+
+      Contain two or more lines explaining:
+        a) Who owns this function ( such as sheet.lua )
+        b) How does this function appear as
+            : such as "define_class()"
+        c) Brief line(s) containing information about the function
+            : "-- Checks if all the arguments passed to class:new() are of an accepted type."
+
+      The function is declared in return
+        : "return function() end"
+
+2.  Indexing files
+      Contain two lines explaining:
+        a) Who owns the functions returned by index and
+        b) Whats the purpose of the functions and if they are public/internal or both
+            : "-- <class name> class functions" (If there's both internal and public functions)
+            : "-- Public <class name> functions"
+            : "-- Internal <class name> functions"
+
+3.  Definition files
+      Contain comments at every section explaining in detail whats the purpose of those definitions
+
+      The sections are closed between separators and every section has a comment at the top
+        : (Like in definitions.lua)
+
+Internal assistant variables in the global scope are defined and documented in "definitions.lua"

@@ -1,0 +1,64 @@
+Assistant known bugs for the current version
+
+Known bugs:
+BUG-ID
+        ... no bugs for this release!!!
+        
+To do:
+ID
+  1. describe: performs quick aggregation functions (count, mean, std, min, 25%,50%,75%,max)
+  2. head: returns x amount of values from the head of the series
+  3. tail: returns x amount of values from the tail of the series
+  4. filter: returns all the series, except values that do not meet the condition
+  5. hasNils: returns all the pairs of data (row, columns) in which X is nil
+          That is:
+                  datasheet:hasNils('Cabin') returns only rows whose cabin is nil
+
+                          Name     Age    Cabin
+                  Psg1    Edd      12     Nil
+                  Psg2    Edd      12     Nil
+                  Psg5    Edd      12     Nil
+                  Psg9    Edd      12     Nil
+          
+          By the way, this implementation has issues:
+                  1. We either manually replace ALL NILS 
+                          (Will work with pairs but takes too long)
+                  2. We add a metadata field to send X in case requested item is nil 
+                          (wont work with pairs)
+        
+        Note: actually, we should implement a group function that returns all items that meet a condition
+              and in part of these conditions we can do nil, making two functions appart sounds like bad design
+  6. For god sake, add the goddamn "adding" functions
+          (append is done, yay!, time do to rows append now)
+          Rows and column append will be done via index parameter
+                  index = column: append new column
+                  index = row: append new row
+  8. Add a move() function
+      pandas be like:
+         "oh you want to move that column? yeah, just, reinsert everything :thumbsup:"
+      
+      (by the way, a move function would work similarly to append)
+  9. Finish binary search, implement conditional binary indexing for both strings and numbers
+  10. Implement ParameterCheck for all the functions and test it please
+  11. When binary search is finished, do binary insertion sort in Assign.lua
+  12. Implement combine to combine multiple columns within a sheet
+  13. Implement join to join multiple columns and return the result
+  14. Format real dataframe keys so they are numbers if they represent numbers
+
+FIXED:
+BUG-ID
+  1. Print() has a bug where if the column label is too large, items get off (fixed 8/9/2020)
+  3. Apparently, there's a bug relating 1D dataframes that makes data.column[1] actually the first item
+      
+      That is, 
+      
+      data = Sheet:new {
+        data = {1,2,3}
+      }
+
+      If you index data as data.columns[2], the output is "2"
+  6. Print somehow seems to not work properly with some items, 
+     the data is there but the items just wont print (issue was related to labels, fixed)
+  7. There's an issue with metadata in assign, so take care of that (fixed)
+  4. Apparently, table.sort(labels) inside Assign() is sorting labels 
+     that are clearly numbers like strings, which causes a jump from 1, to 10, to 100, and 101...
