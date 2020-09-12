@@ -30,15 +30,10 @@ So far the library it's getting at least one commit weekly, but we can improve t
 ## What Assistant should support next
 
 1. Data analysis functions
-2. head: returns x amount of values from the head of the series
-3. tail: returns x amount of values from the tail of the series
-4. filter: returns all the series, except values that do not meet the condition
-5. getNils: returns all the pairs of data (row, columns) in which X is nil
-6. Complete data inserting functions ( such as appending columns and rows )
-7. Memoize
-8. Importing and exporting data to different file formats
-9. Pass metadata of the dataframe for any returned objects
-10. Find bugs and fix them
+2. Complete data inserting functions ( such as appending columns and rows )
+3. Memoize
+4. Importing and exporting data to different file formats
+5. Integration with Torch and Torchnet for machine learning
 
 ## Contributions
 
