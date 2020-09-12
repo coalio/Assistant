@@ -31,7 +31,7 @@ So far the library it's getting at least one commit weekly, but we can make this
 
 1. Data analysis functions
 2. Plotting and visualization
-3. Memoize fpr faster indexing
+3. Memoize for higher performance
 4. Importing and exporting data to different file formats
 5. Integration with Torch and Torchnet for machine learning
 
