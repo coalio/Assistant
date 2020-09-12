@@ -17,7 +17,7 @@ because Lua also deserves a nice data science and data analysis library.
 *I'm currently the only maintainer of this project*, but I would love your contributions
 and I'm currently looking for help.
 
-So far the library it's getting at least one commit weekly, but we can improve this to **two** if you help to build Assistant
+So far the library it's getting at least one commit weekly, but we can make this to **two** if you contribute to build Assistant
 
 ## Currently implemented
 
@@ -30,14 +30,14 @@ So far the library it's getting at least one commit weekly, but we can improve t
 ## What Assistant should support next
 
 1. Data analysis functions
-2. Complete data inserting functions ( such as appending columns and rows )
-3. Memoize
+2. Plotting and visualization
+3. Memoize fpr faster indexing
 4. Importing and exporting data to different file formats
 5. Integration with Torch and Torchnet for machine learning
 
 ## Contributions
 
-I would love your contributions to Assistant, and I wouldn't like to un-inspire you from contributing,
+I would love if you contributed to Assistant, and I wouldn't like to un-inspire you from contributing,
 but to make the code easier to maintain in the long term, there's a <a href="https://github.com/coalio/Assistant/blob/master/conventions.txt">conventions.txt</a> file
   
 These conventions are not very restricting, as long as it works there's no need to use a special method for it
