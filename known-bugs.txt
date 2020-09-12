@@ -2,8 +2,8 @@ Assistant known bugs for the current version
 
 Known bugs:
 BUG-ID
-        ... no bugs for this release!!!
-        
+  No bugs yet !!!
+
 To do:
 ID
   1. describe: performs quick aggregation functions (count, mean, std, min, 25%,50%,75%,max)
@@ -11,33 +11,8 @@ ID
   3. tail: returns x amount of values from the tail of the series
   4. filter: returns all the series, except values that do not meet the condition
   5. hasNils: returns all the pairs of data (row, columns) in which X is nil
-          That is:
-                  datasheet:hasNils('Cabin') returns only rows whose cabin is nil
-
-                          Name     Age    Cabin
-                  Psg1    Edd      12     Nil
-                  Psg2    Edd      12     Nil
-                  Psg5    Edd      12     Nil
-                  Psg9    Edd      12     Nil
-          
-          By the way, this implementation has issues:
-                  1. We either manually replace ALL NILS 
-                          (Will work with pairs but takes too long)
-                  2. We add a metadata field to send X in case requested item is nil 
-                          (wont work with pairs)
-        
-        Note: actually, we should implement a group function that returns all items that meet a condition
-              and in part of these conditions we can do nil, making two functions appart sounds like bad design
-  6. For god sake, add the goddamn "adding" functions
-          (append is done, yay!, time do to rows append now)
-          Rows and column append will be done via index parameter
-                  index = column: append new column
-                  index = row: append new row
+  6. Add proper adding functions
   8. Add a move() function
-      pandas be like:
-         "oh you want to move that column? yeah, just, reinsert everything :thumbsup:"
-      
-      (by the way, a move function would work similarly to append)
   9. Finish binary search, implement conditional binary indexing for both strings and numbers
   10. Implement ParameterCheck for all the functions and test it please
   11. When binary search is finished, do binary insertion sort in Assign.lua
