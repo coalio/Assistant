@@ -38,4 +38,56 @@ should include comments for each function/section
       The sections are closed between separators and every section has a comment at the top
         : (Like in definitions.lua)
 
-Internal assistant variables in the global scope are defined and documented in "definitions.lua"
+Internal Assistant variables in the global scope are defined and documented in "definitions.lua"
+
+There's a fellow guidelines relating to code style to make Assistant source more readable:
+
+1.  Indents
+      Using tabs, indents should be 2 spaces width
+
+2.  Line breaks
+      Place an empty line right before any comment
+      Place an empty line before and after any multiline
+      Place an empty line before and after sections (related lines of code)
+        : If you want to know how to determine sections, mimic Sheet.lua
+      Place an empty line before and after declaring functions
+        : This only applies if the function is nested in other function or in a table
+	  You should also break long tables and align when declaring (i.e. index.lua)
+
+3.  Comments
+      Make everything as concise and short as possible
+
+4.  Methods used
+      There's no general guidelines, but keep everything as short and readable as possible
+      without sacrificing performance (you should also split long function calls)
+
+5.  Variable names
+      The variable name should be self explanatory all the time
+
+6.  lower case / Upper Case
+      Constants should be all upper case
+      Local variables that dont leave the local scope should be lower case
+        : Also separate words with underscore _
+      Classes should be PascalCase
+        : When creating a new class object, you should use camelCase instead (as in "newSheet" and "Sheet")
+        : When creating a new class object, you should prefix "new"
+
+7.  and-or ternary
+      You should split these only if there's more than 1 conditional involved
+        : (true and true or false) has 1 conditional
+        : ((false and true) or ((true==true and false) or true)) has 2 conditionals
+
+        Therefore you split it like this:
+          (
+            (
+              true and true
+            )
+            or (
+              (
+                true == true and false
+              )
+              or true
+            )
+          )
+
+        This makes the code more readable, but if you can avoid these, please do

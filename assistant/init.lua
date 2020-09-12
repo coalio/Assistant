@@ -1,18 +1,9 @@
--- Assistant Library
-require((((...)~=nil and (...) .. '.') or '') .. 'definitions')
-LIBS_PATH = (((...)~=nil and (...) .. '.libs.') or 'libs.')
--- Utils
+require(((context ~= nil and context .. '.') or '') .. 'definitions')
+LIBS_PATH = ((context ~= nil and context .. '.libs.') or 'libs.')
 utils = import('utils.index')
--- Public classes
 local Sheet = import('classes.Sheet')
--- Public modules
-
 assistant = {
-  -- Classes
-  Sheet = Sheet, 
-
-  -- Modules
-  CSV = CSV
+  Sheet = Sheet
 }
 
 rid(); return assistant

@@ -6,8 +6,8 @@ PATH = function(at, to) return (at or ' ') .. "." .. to end
 BASE = function(at, to) return (at or ' '):match('(.-)[^%.]+$') .. to end
 -----------------------------------------------------------------------------
 -- Functions used internally
-import = require(BASE(..., 'libs.utils.import'))
 rid = require(BASE(..., 'libs.utils.rid'))
+import = require(BASE(..., 'libs.utils.import'))
 -- Compatibility
 local vlen = string.len(_VERSION)
 local minor = tonumber(_VERSION:sub(vlen, vlen))

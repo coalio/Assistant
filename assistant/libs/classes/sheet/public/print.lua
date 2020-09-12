@@ -13,13 +13,13 @@ return function(data, max_columns, max_rows, max_cellsize, labels)
 
     -- If nil, then set default, else if -1 or negative, set max
     max_cellsize = max_cellsize or 15
-    max_cellsize = ((max_cellsize<0 and math.huge) or max_cellsize)
-    max_columns = max_columns or ((10>#column_labels and #column_labels) or 10)
-    max_rows = max_rows or ((10>#row_labels and #row_labels) or 10)
-    max_columns = ((max_columns<0 and math.huge) or max_columns)
-    max_rows = ((max_rows<0 and math.huge) or max_rows)
-    max_columns = ((max_columns>#column_labels and #column_labels) or max_columns)
-    max_rows = ((max_rows>#row_labels and #row_labels) or max_rows)
+    max_cellsize = ((max_cellsize < 0 and -1) or max_cellsize)
+    max_columns = max_columns or ((10 > #column_labels and #column_labels) or 10)
+    max_rows = max_rows or ((10 > #row_labels and #row_labels) or 10)
+    max_columns = ((max_columns < 0 and math.huge) or max_columns)
+    max_rows = ((max_rows < 0 and math.huge) or max_rows)
+    max_columns = ((max_columns > #column_labels and #column_labels) or max_columns)
+    max_rows = ((max_rows > #row_labels and #row_labels) or max_rows)
 
     -- Transform row and column labels to strings/numbers respectively
     local array_labels = {}
@@ -38,7 +38,7 @@ return function(data, max_columns, max_rows, max_cellsize, labels)
 
     -- Get the largest cellsize for every column
     for i = 1, #column_labels do
-      if i>max_columns then break end
+      if i > max_columns then break end
       if not column_labels[i] then break end
       cellsizes.column_labels[i] = cellsizes.column_labels[i] or tostring(column_labels[i]):len()
       for _, string in pairs(data.columns[column_labels[i]]) do
@@ -51,11 +51,13 @@ return function(data, max_columns, max_rows, max_cellsize, labels)
     -- Transform column labels 
     local column_header = {}
     for index, label in pairs(column_labels) do
-      if index>max_columns then break end
+      if index > max_columns then break end
       if tostring(label):len() < cellsizes.column_labels[index] then
-        column_header[index] = (label .. (' '):rep(
-          cellsizes.column_labels[index] - tostring(label):len())):sub(1,((max_cellsize==math.huge and -1) or max_cellsize)
-        )
+        column_header[index] = (
+          label .. (' '):rep(
+            cellsizes.column_labels[index] - tostring(label):len()
+          )
+        ):sub(1, max_cellsize)
       else
         column_header[index] = column_labels[index]
       end
@@ -63,28 +65,44 @@ return function(data, max_columns, max_rows, max_cellsize, labels)
 
     -- Do the same with row labels
     for i, string in pairs(row_labels) do
-      if i>max_rows then break end
+      if i > max_rows then break end
       if cellsizes.row_labels < tostring(string):len() then
         cellsizes.row_labels = tostring(string):len()
       end
     end
 
-    -- Print labels
-    print('Displaying '..((max_cellsize == math.huge and 'all') or 'up to '..max_cellsize)..' characters for '..
-    ((max_columns==math.huge and #column_labels) or max_columns)..' columns and '
-    ..((max_rows==math.huge and #row_labels) or max_rows)..' rows\n')
-    print(('#' .. (' '):rep(
-      ((cellsizes.row_labels>1 and cellsizes.row_labels) or 0))):sub(1,((max_cellsize==math.huge and -1) or max_cellsize)
-    ), unpack(column_header))
+    -- Print "Displaying x characters for x columns and x rows"
+    print(
+      'Displaying '..
+      ((max_cellsize == -1 and 'all') or 'up to '..max_cellsize)..
+      ' characters for '..
+      ((max_columns == math.huge and #column_labels) or max_columns)..
+      ' columns and '..
+      ((max_rows == math.huge and #row_labels) or max_rows)..' rows\n'
+    )
+
+    -- Print column labels
+    print(
+      ('#' .. (' '):rep(
+        ((cellsizes.row_labels>1 and cellsizes.row_labels) or 0)
+      )):sub(1, max_cellsize), 
+      unpack(column_header)
+    )
 
     -- Order rows
     local rows = {}
     for row_index, row_name in pairs(row_labels) do
-      if row_index>max_rows then break end
+      if row_index > max_rows then break end
       rows[#rows+1] = {}
       for i = 1, #column_labels do
-        if i>max_columns then break end
+        if i > max_columns then break end
         local column = data.columns[column_labels[i]]
+
+        --[[
+          1. Check if the label is a number and if the item key is also a number
+          2. Check if the label is a number but the item key is a string as a number
+          3. Check if there is a pointer for that label
+        ]]
         local item = tostring(
           (
             column[data.rows['_pointers'][row_labels[#rows]]] 
@@ -100,10 +118,12 @@ return function(data, max_columns, max_rows, max_cellsize, labels)
         
         -- Adjust items to be equal in size to their respective column label cellsize
         if item:len() < cellsizes.column_labels[i] then
-          item = (item:sub(
-            1,((max_cellsize==math.huge and -1) or max_cellsize)) .. 
-            (' '):rep(cellsizes.column_labels[i] - item:len())):sub(1,((max_cellsize==math.huge and -1) or max_cellsize)
-          )
+          item = (
+            item:sub(1, max_cellsize) .. 
+            (' '):rep(
+              cellsizes.column_labels[i] - item:len()
+            )
+          ):sub(1, max_cellsize)
         end
         rows[#rows][#rows[#rows]+1] = item
       end
@@ -114,21 +134,23 @@ return function(data, max_columns, max_rows, max_cellsize, labels)
       for i, row_item in pairs(row) do
 
         -- Fill the missing space in row label
-        row[i] = tostring(row_item):sub(1,((max_cellsize==math.huge and -1) or max_cellsize))
+        row[i] = tostring(row_item):sub(1, max_cellsize)
       end
       if tostring(row_labels[i]):len() < cellsizes.row_labels then
         row_labels[i] = (row_labels[i] .. (' '):rep(cellsizes.row_labels - tostring(row_labels[i]):len()))
       end
 
       -- Print the row
-      print(tostring(row_labels[i]):sub(1,((max_cellsize==math.huge and -1) or max_cellsize)), unpack(row))
+      print(tostring(row_labels[i]):sub(1, max_cellsize), unpack(row))
     end
 
     -- Information about the actual size of sheet
     print('Sheet size: ', #data.columns['_labels']..'x'..#data.rows['_labels'], '(col x row)')
   else
-    raiseError(2, '?:print', {data, max_columns, max_rows, max_cellsize, labels},
-        'data type is unsupported or could not identify the type')
+    raiseError(
+      2, '?:print', {data, max_columns, max_rows, max_cellsize, labels},
+      'data type is unsupported or could not identify the type'
+    )
   end
 end
 

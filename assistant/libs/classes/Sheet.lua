@@ -83,7 +83,6 @@ function Sheet:new(...)
   else
     newSheet = define_class(self.metadata.type, property_types, {({...})[1]} )
   end
-
   local parameters = ((({...})[2]~=nil and ({...})[2]) or {})
   local rawrows = get_rows(newSheet.data)
   local row_pointers = (
@@ -170,7 +169,7 @@ function Sheet:new(...)
     end
   })
 
-  collectgarbage() return newSheet
+  return newSheet
 end
 
 return Sheet
