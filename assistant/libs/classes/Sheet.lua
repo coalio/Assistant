@@ -1,5 +1,5 @@
--- Sheet.lua
--- Name: Assistant.Sheet
+-- sheet.lua
+-- Name: Assistant.sheet
 -- Type: Class
 -- Description: Creates and manages a dataframe
 
@@ -9,8 +9,8 @@ local index = require(PATH(..., 'index'))
 -----------------------------------------------------------------------------
 -- Index sheet/* functions
 -----------------------------------------------------------------------------
-local define_rows = index.define_rows
-local define_columns = index.define_columns
+local defineRows = index.defineRows
+local defineColumns = index.defineColumns
 
 local at = index.at
 local min = index.min
@@ -18,16 +18,16 @@ local max = index.max
 local print = index.print
 local append = index.append
 local actions = index.actions
-local get_rows = index.get_rows
+local getRows = index.getRows
 
-local define_class = utils['defineclass']
-local with = utils['with']
-local assign = utils['assign']
+local defineClass = utils.defineClass
+local with = utils.with
+local assign = utils.assign
 
 -----------------------------------------------------------------------------
 -- Class prototype
 -----------------------------------------------------------------------------
-local Sheet = {
+local sheet = {
   metadata = {
     ['type'] = 'sheet',
     ['name'] = 'sheet'
@@ -55,13 +55,13 @@ local Sheet = {
   max = max,
   min = min,
   print = print,
-  getRows = get_rows
+  getRows = getRows
 }
 
 -----------------------------------------------------------------------------
 -- Property types
 -----------------------------------------------------------------------------
-local property_types = {
+local propertyTypes = {
   ['data']            = {'table'},
   ['properties']      = {'table', 'named_args'},
     ['allowDuplicates'] = {'boolean'},
@@ -75,57 +75,61 @@ local property_types = {
 -----------------------------------------------------------------------------
 -- Class constructor
 -----------------------------------------------------------------------------
-function Sheet:new(...)
+function sheet:new(...)
   local newSheet = {}
   local prototype = self['prototype']
   if ({...})[1] == 'raw' then
     newSheet = arg[2]
   else
-    newSheet = define_class(self.metadata.type, property_types, {({...})[1]} )
+    newSheet = defineClass(self.metadata.type, propertyTypes, {({...})[1]} )
   end
-  local parameters = ((({...})[2]~=nil and ({...})[2]) or {})
-  local rawrows = get_rows(newSheet.data)
-  local row_pointers = (
+  local arguments = ((({...})[2]~=nil and ({...})[2]) or {})
+  local rawRows = getRows(newSheet.data)
+  local rowPointers = (
     (
       ({...})[2] ~= nil and
-      ({...})[2]['rows_index'] or
-      define_rows(rawrows, parameters['rows'],
-      parameters['row_prefix'] or '',
-      parameters['row_suffix'] or '')
+      ({...})[2]['rowsIndex'] or
+      defineRows(
+        rawRows, arguments['rows'],
+        arguments['rowPrefix'] or '',
+        arguments['rowSuffix'] or ''
+      )
     ) 
     or {}
   ) -- If the user provided metadata then define row labels using pointers, otherwise sort
 
-  local column_pointers = (
+  local columnPointers = (
     (
       ({...})[2] ~= nil and
-      ({...})[2]['columns_index'] or 
-      define_columns(newSheet.data, parameters['columns'],
-      parameters['column_prefix'] or '',
-      parameters['column_suffix'] or '')
+      ({...})[2]['columnsIndex'] or 
+      defineColumns(
+        newSheet.data, arguments['columns'],
+        arguments['columnPrefix'] or '',
+        arguments['columnSuffix'] or ''
+      )
     )
     or {}
   ) -- If the user provided metadata then define column labels using pointers, otherwise sort
 
   -- Define child object
   newSheet.metadata = self.metadata
-  newSheet.row_names = parameters['rows'] or {}
-  newSheet.column_names = parameters['columns'] or {}
+  newSheet.rowNames = arguments['rows'] or {}
+  newSheet.columnNames = arguments['columns'] or {}
 
   -- assign() allows us to, well, assign, different labels and functions to the object
   newSheet.rows = assign(
     'series',
-    newSheet.row_names,
-    rawrows,
-    row_pointers, -- Contains an empty table or pointers
+    newSheet.rowNames,
+    rawRows,
+    rowPointers, -- Contains an empty table or pointers
     with(actions)
   )
 
   newSheet.columns = assign(
     'series',
-    newSheet.column_names,
+    newSheet.columnNames,
     newSheet.data, 
-    column_pointers, -- Contains an empty table or pointers
+    columnPointers, -- Contains an empty table or pointers
     with(actions)
   )
   
@@ -142,22 +146,22 @@ function Sheet:new(...)
       -- Syntactic sugar for at() function (sheet['column:row'])
       if type(index) == 'string' then
         if (index:match("^(.+):(.+)")) then
-          local column_name = index:gsub(":.*", "")
-          local row_name = index:gsub("[^:]+:", "")
-          return self:at(column_name, row_name)
+          local columnName = index:gsub(":.*", "")
+          local rowName = index:gsub("[^:]+:", "")
+          return self:at(columnName, rowName)
         end  
       end
 
       if tostring(index):sub(1,1) == '_' then
-        local mdname = tostring(index):sub(2,#index)
-        return self.metadata[mdname]
+        local metadataIndex = tostring(index):sub(2,#index)
+        return self.metadata[metadataIndex]
       end
     end,
 
     __newindex = function(self, index, value)
       if tostring(index):sub(1,1) == '_' then
-        mdname = tostring(index):sub(2,#index)
-        rawset(self.metadata, mdname, value)
+        metadataIndex = tostring(index):sub(2,#index)
+        rawset(self.metadata, metadataIndex, value)
         return
       end
 
@@ -172,4 +176,4 @@ function Sheet:new(...)
   return newSheet
 end
 
-return Sheet
+return sheet

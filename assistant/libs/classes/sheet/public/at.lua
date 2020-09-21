@@ -2,7 +2,7 @@
 -- Allows you to get an item using column/row indices/labels
 -- Example: datasheet:at('Column1', 'Row2')
 
-local raiseError = utils['raiseError']
+local raiseError = utils.raiseError
 return function(data, column, row)
   column = (data.columns[tonumber(column)] and tonumber(column) or column) 
   row = (data.rows[tonumber(row)] and tonumber(row) or row)

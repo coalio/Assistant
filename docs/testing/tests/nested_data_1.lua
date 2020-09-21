@@ -18,7 +18,7 @@ local myData = {
   }
 }
 
-customersSheet = assistant.Sheet:new ({data = myData}, 
+customersSheet = assistant.sheet:new ({data = myData}, 
   {
     columns = {'Customer1', 'Customer2'}, -- Assign the column labels in order of declaration
     rows = {'customer_name', 'purchases'} -- Assign the row names in order of declaration

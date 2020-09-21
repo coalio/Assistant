@@ -1,13 +1,15 @@
 -----------------------------------------------------------------------------
 -- Collection of utilities used internally
 -----------------------------------------------------------------------------
+
 -- Used to shorten some path references when importing files
 PATH = function(at, to) return (at or ' ') .. "." .. to end
 BASE = function(at, to) return (at or ' '):match('(.-)[^%.]+$') .. to end
------------------------------------------------------------------------------
+
 -- Functions used internally
 rid = require(BASE(..., 'libs.utils.rid'))
 import = require(BASE(..., 'libs.utils.import'))
+
 -- Compatibility
 local vlen = string.len(_VERSION)
 local minor = tonumber(_VERSION:sub(vlen, vlen))

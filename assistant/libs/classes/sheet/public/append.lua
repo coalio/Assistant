@@ -1,9 +1,9 @@
 -- sheet.lua: append()
 -- Appends a column at the desired position
 
-local parameterCheck = utils['parametercheck']
-local raiseError = utils['raiseerror']
-local ParameterTypes = {
+local checkArguments = utils.checkArguments
+local raiseError = utils.raiseError
+local parameterTypes = {
   'table',
   'string|number',
   'table',
@@ -11,7 +11,7 @@ local ParameterTypes = {
 }
 
 return function(data, column, value, position)
-  if parameterCheck(data['_type']..':append', ParameterTypes, {data, column, value, position}) == -1 then
+  if checkArguments(data['_type']..':append', parameterTypes, {data, column, value, position}) == -1 then
     return
   end
 

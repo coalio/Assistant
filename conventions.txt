@@ -64,13 +64,10 @@ There's a fellow guidelines relating to code style to make Assistant source more
 5.  Variable names
       The variable name should be self explanatory all the time
 
-6.  lower case / Upper Case
-      Constants should be all upper case
-      Local variables that dont leave the local scope should be lower case
-        : Also separate words with underscore _
-      Classes should be PascalCase
-        : When creating a new class object, you should use camelCase instead (as in "newSheet" and "Sheet")
-        : When creating a new class object, you should prefix "new"
+6.  lower case / UPPER CASE
+      Constants should be all upper case and snake case (CLASS_PATH)
+      All variables are pascalCase
+      Names that are not variables are snake_case (for example, parameter type "named_args")
 
 7.  and-or ternary
       You should split these only if there's more than 1 conditional involved
@@ -80,7 +77,7 @@ There's a fellow guidelines relating to code style to make Assistant source more
         Therefore you split it like this:
           (
             (
-              true and true
+              false and true
             )
             or (
               (
@@ -90,4 +87,5 @@ There's a fellow guidelines relating to code style to make Assistant source more
             )
           )
 
-        This makes the code more readable, but if you can avoid these, please do
+        This makes the code more readable (in case a regular if would be too extensive), 
+        but if you can avoid these, please do

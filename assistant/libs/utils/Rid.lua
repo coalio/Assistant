@@ -4,7 +4,7 @@
 
 -- Assistant requires passing environment variables to statically nested scopes, 
 -- however, can't be done easily in Lua 5.1.5 or inferior, therefore this offers a backwards-compatible fix
-local rid_of = {
+local ridOf = {
   'T',
 
   'PATH',
@@ -20,7 +20,7 @@ return function(of)
   local of = of or 'rid'
   _G[of] = ((of and nil) or (
     function() 
-      for _,v in pairs(rid_of) do 
+      for _,v in pairs(ridOf) do 
         _G[v] = nil
       end 
     end)())

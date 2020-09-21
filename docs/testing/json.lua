@@ -1,5 +1,9 @@
 -- Json.lua: json.*
 -- Allows for parsing of .json files
+-- Note: This library is not part of Assistant, it's licensed under the public domain
+--       but I feel it's necessary to give him credit:
+
+-- Author: tylerneylon (https://github.com/tylerneylon)
 
 local json = {}
 

@@ -3,11 +3,10 @@
 -----------------------------------------------------------------------------
 
 return {
-  json           = require(BASE(..., 'json')),
   with           = require(BASE(..., 'with')),
   assign         = require(BASE(..., 'assign')),
-  growtable      = require(BASE(..., 'growtable')),
-  raiseerror     = require(BASE(..., 'raiseerror')),
-  defineclass    = require(BASE(..., 'defineclass')),
-  parametercheck = require(BASE(..., 'parametercheck')),
+  growTable      = require(BASE(..., 'growTable')),
+  raiseError     = require(BASE(..., 'raiseError')),
+  defineClass    = require(BASE(..., 'defineClass')),
+  checkArguments = require(BASE(..., 'checkArguments')),
 }

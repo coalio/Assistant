@@ -1,9 +1,9 @@
 require(((context ~= nil and context .. '.') or '') .. 'definitions')
 LIBS_PATH = ((context ~= nil and context .. '.libs.') or 'libs.')
 utils = import('utils.index')
-local Sheet = import('classes.Sheet')
+local sheet = import('classes.sheet')
 assistant = {
-  Sheet = Sheet
+  sheet = sheet
 }
 
 rid(); return assistant

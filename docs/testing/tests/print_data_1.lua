@@ -1,7 +1,7 @@
--- Sheet.print() is a very versatile function
+-- sheet.print() is a very versatile function
 -- Assistant has intelligent column/row naming that allows for things like this example
 
-local Sheet = require('assistant').Sheet
+local sheet = require('assistant').sheet
 
 -- You can opt for doing an array or hash table (or both)
 -- ['year'] = {2010, 2011, 2012, ...
@@ -24,7 +24,7 @@ data = {
   ['losses'] = {2, 3, 2, 4, 2, 5, 9, 11, 11}
 }
 
-football = Sheet:new(
+football = sheet:new(
   {data = data},
   {
     columns = { 'year', 'team', 'wins', 'draws', 'losses' }, -- Order columns like this
@@ -53,4 +53,4 @@ football(-1, -1, -1, {
 }) -- football() is syntactic sugar for football:print()
 
 -- You can play with this example
--- Sheet size is 5x9 (6x9 after appending column)
+-- sheet size is 5x9 (6x9 after appending column)

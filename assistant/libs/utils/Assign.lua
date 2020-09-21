@@ -37,8 +37,8 @@ return function(type, labels, data, pointers, prototype)
     end)
   else
     -- Labels could be numbers so we should convert them to string
-    for label_index, label in pairs(labels) do
-      labels[label_index] = tostring(label)
+    for labelIndex, label in pairs(labels) do
+      labels[labelIndex] = tostring(label)
     end
   end
 
@@ -49,11 +49,11 @@ return function(type, labels, data, pointers, prototype)
 
       -- _: metadata objects use this prefix
       if tostring(index):sub(1,1) == '_' then
-        mdname = tostring(index):sub(2,#index)
-        if mdname == 'metadata' then
+        metadataName = tostring(index):sub(2,#index)
+        if metadataName == 'metadata' then
           return metadata
         else
-          return metadata[mdname] 
+          return metadata[metadataName] 
         end
       end
     end,

@@ -1,38 +1,38 @@
--- DefineClass.lua: define_class()
+-- DefineClass.lua: defineClass()
 -- Checks if all the arguments passed to class:new() are of an accepted type.
 -- Checks if required arguments (such as { data }) are missing
 
-return function(name, property_types, arguments) -- Assert would make this "too hard" to read.
+return function(name, propertyTypes, arguments) -- Assert would make this "too hard" to read.
   local next = next
   local o = {}
   for _, vararg in pairs(arguments) do
     if type(vararg) == 'table' then
-      for _, required_arg in pairs(property_types['required']) do
-        if not vararg[required_arg] and not o[required_arg] then
-          error(required_arg .. ' is a required argument for ' .. name)
+      for _, requiredArg in pairs(propertyTypes['required']) do
+        if not vararg[requiredArg] and not o[requiredArg] then
+          error(requiredArg .. ' is a required argument for ' .. name)
         end
       end
-      for property_index, property in pairs(vararg) do
-        if property_types[property_index] == nil then 
-          error(property_index .. ' is not a valid argument') 
+      for propertyIndex, property in pairs(vararg) do
+        if propertyTypes[propertyIndex] == nil then 
+          error(propertyIndex .. ' is not a valid argument') 
         end
-        if type(property) == property_types[property_index][1] then
-          if not property or (property_types[property_index][1] == 'table' and next(property) == nil) then
-            error(property_index .. " can't be nil or empty")
+        if type(property) == propertyTypes[propertyIndex][1] then
+          if not property or (propertyTypes[propertyIndex][1] == 'table' and next(property) == nil) then
+            error(propertyIndex .. " can't be nil or empty")
           end
-          o[property_index] = property
-          if type(property) == 'table' and property_types[property_index][2] == 'named_args' then
-            for property_name, property_value in pairs(property) do
-              if property_types[property_name] == nil then 
-                error(property_name .. ' is not a valid argument') 
+          o[propertyIndex] = property
+          if type(property) == 'table' and propertyTypes[propertyIndex][2] == 'named_args' then
+            for propertyName, propertyValue in pairs(property) do
+              if propertyTypes[propertyName] == nil then 
+                error(propertyName .. ' is not a valid argument') 
               end      
-              if type(property_value) ~= tostring(property_types[property_name][1]) then
-                error(property_name .. ' is not of valid type: ' .. property_types[property_name][1])
+              if type(propertyValue) ~= tostring(propertyTypes[propertyName][1]) then
+                error(propertyName .. ' is not of valid type: ' .. propertyTypes[propertyName][1])
               end
             end
           end
         else
-          error(property_index .. ' is not of valid type: ' .. property_types[property_index][1])
+          error(propertyIndex .. ' is not of valid type: ' .. propertyTypes[propertyIndex][1])
         end
       end
     else

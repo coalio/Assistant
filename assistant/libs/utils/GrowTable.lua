@@ -1,4 +1,4 @@
--- GrowTable.lua: GrowTable()
+-- GrowTable.lua: growTable()
 -- Allows to copy data from a table from "at" to "n", or start an empty table and grow it
 
 return function(data, n, at) 
