@@ -42,6 +42,76 @@ but to make the code easier to maintain in the long term, there's a <a href="htt
   
 These conventions are not very restricting, as long as it works there's no need to use a special method for it
 
-## Usage
+```lua
+-- sheet.print() is a very versatile function
+-- Assistant has intelligent column/row naming that allows things like this example
 
-I provided some examples in docs/testing, I'll try to provide a full documentation for the first stable release
+local sheet = require('assistant').sheet
+
+-- You can opt for using an array or hash table (or both)
+-- ['year'] = {2010, 2011, 2012, ...
+-- However, the array part wont be mixed with the hash part
+data = {
+  { 
+    2010, 2011, 2012,
+    2010, 2011, 2012,
+    2010, 2011, 2012
+  } ,
+  {
+  'FCBarcelona', 'FCBarcelona',
+  'FCBarcelona', 'RMadrid',
+  'RMadrid', 'RMadrid',
+  'ValenciaCF', 'ValenciaCF',
+  'ValenciaCF'
+  } ,
+  ['wins'] = {30, 28, 32, 29, 32, 26, 21, 17, 19},
+  ['draws'] = {6, 7, 4, 5, 4, 7, 8, 10, 8},
+  ['losses'] = {2, 3, 2, 4, 2, 5, 9, 11, 11}
+}
+
+football = sheet:new(
+  {data = data},
+  {
+    columns = { 'year', 'team', 'wins', 'draws', 'losses' }, -- Order columns like this
+    rows = {'FC1', 'FC2', 'FC3', 'RM1', 'RM2', 'RM3', 'CF1', 'CF2', 'CF3'} -- Give rows a label
+  }
+)
+
+--Append a new column that holds the index for every row
+newRow = {
+  name = 'index',
+  content = {}
+}
+for i = 1, #football.rows do
+  table.insert(newRow.content, i)
+end
+
+football:append(
+  newRow.name,
+  newRow.content, 1 -- Append at position 1, that is, the first column
+)
+
+-- Print the data
+football(-1, -1, -1, {
+  {'index', 'year', 'team', 'wins', 'draws', 'losses'} -- Print only these columns and in this order
+}) -- football() is syntactic sugar for football:print()
+
+-- You can play with this example
+-- sheet size is 5x9 (6x9 after appending column)
+```
+
+```lua
+Displaying all characters for 6 columns and 9 rows
+
+#       index   year    team            wins    draws   losses
+FC1     1       2010    FCBarcelona     30      6       2
+FC2     2       2011    FCBarcelona     28      7       3
+FC3     3       2012    FCBarcelona     32      4       2
+RM1     4       2010    RMadrid         29      5       4
+RM2     5       2011    RMadrid         32      4       2
+RM3     6       2012    RMadrid         26      7       5
+CF1     7       2010    ValenciaCF      21      8       9
+CF2     8       2011    ValenciaCF      17      10      11
+CF3     9       2012    ValenciaCF      19      8       11
+Sheet size:     6x9     (col x row)
+```
