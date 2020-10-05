@@ -4,8 +4,8 @@
 return function(data, rowNames, prefix, suffix)
   if not rowNames or next(rowNames) == nil then return {} end
   local pointers = {}
-  local i = 0
-  for index, name in ipairs(rowNames) do
+  
+  local i = 0; for index, name in ipairs(rowNames) do
     if data[name]~=nil then
       pointers[prefix .. name .. suffix] = name
     else

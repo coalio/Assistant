@@ -4,8 +4,8 @@
 return function(data, columnNames, prefix, suffix)
   if not columnNames or next(columnNames) == nil then return {} end
   local pointers = {}
-  local i = 0
-  for index, name in ipairs(columnNames) do
+  
+  local i = 0; for index, name in ipairs(columnNames) do
     if data[name]~=nil then
       pointers[prefix .. name .. suffix] = name
     else

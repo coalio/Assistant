@@ -1,14 +1,14 @@
--- ParameterCheck.lua: parameterCheck()
+-- parameterCheck.lua: parameterCheck()
 -- Checks if all arguments passed to the function are valid
 
 local raiseError = require(BASE(..., 'raiseerror'))
-return function(parameterName, types, parameters)
-  for parameterName, parameter in pairs(parameters) do
-    local lw = types[parameterName]:gsub('(.+)%|', '')
-    local rw = types[parameterName]:gsub('%|(.+)', '')
+return function(functionName, types, parameters)
+  for parameterIndex, parameter in pairs(parameters) do
+    local lw = types[parameterIndex]:gsub('(.+)%|', '')
+    local rw = types[parameterIndex]:gsub('%|(.+)', '')
     if type(parameter)~=lw and type(parameter)~=rw then
-      raiseError(2, parameterName, parameters, 'parameter ' .. parameterName .. ' must be of type '
-        .. types[parameterName])
+      raiseError(2, functionName, parameters, 'parameter ' .. parameterIndex .. ' must be of type '
+        .. types[parameterIndex])
 
       return -1
     end
