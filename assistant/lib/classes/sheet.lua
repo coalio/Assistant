@@ -76,13 +76,12 @@ local propertyTypes = {
 -- Class constructor
 -----------------------------------------------------------------------------
 function sheet:new(...)
-  local newSheet = {}
   local prototype = self['prototype']
-  if ({...})[1] == 'raw' then
-    newSheet = arg[2]
-  else
-    newSheet = defineClass(self.metadata.type, propertyTypes, {({...})[1]} )
-  end
+  
+  -- Class object declaration
+  local newSheet = defineClass(self.metadata.type, propertyTypes, {({...})[1]} )
+
+  -- Class attributes
   local arguments = ((({...})[2]~=nil and ({...})[2]) or {})
   local rawRows = getRows(newSheet.data)
   local rowPointers = (
@@ -152,15 +151,15 @@ function sheet:new(...)
         end  
       end
 
-      if tostring(index):sub(1,1) == '_' then
+      if tostring(index):sub(1, 1) == '_' then
         local metadataIndex = tostring(index):sub(2,#index)
         return self.metadata[metadataIndex]
       end
     end,
 
     __newindex = function(self, index, value)
-      if tostring(index):sub(1,1) == '_' then
-        metadataIndex = tostring(index):sub(2,#index)
+      if tostring(index):sub(1, 1) == '_' then
+        metadataIndex = tostring(index):sub(2, #index)
         rawset(self.metadata, metadataIndex, value)
         return
       end

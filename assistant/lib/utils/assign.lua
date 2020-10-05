@@ -1,4 +1,4 @@
--- Assign.lua: assign()
+-- assign.lua: assign()
 -- Returns a metatable whose items can be linked (refer) to different items or names
 -- Also assigns metadata such as labels, pointers, and prototype functions
 
@@ -30,11 +30,14 @@ return function(type, labels, data, pointers, prototype)
     for label in pairs(object) do
       labels[#labels+1] = tostring(label)
     end
-    table.sort(labels, function(a,b)
-      local na = tonumber(a)
-      local nb = tonumber(b)
-      if na and nb then return na < nb else return a < b end
-    end)
+    table.sort(
+      labels, 
+      function(a, b)
+        local na = tonumber(a)
+        local nb = tonumber(b)
+        if na and nb then return na < nb else return a < b end
+      end
+    )
   else
     -- Labels could be numbers so we should convert them to string
     for labelIndex, label in pairs(labels) do
@@ -48,8 +51,8 @@ return function(type, labels, data, pointers, prototype)
       if pointers[index] then return rawget(self, pointers[index]) end
 
       -- _: metadata objects use this prefix
-      if tostring(index):sub(1,1) == '_' then
-        metadataName = tostring(index):sub(2,#index)
+      if tostring(index):sub(1, 1) == '_' then
+        metadataName = tostring(index):sub(2, #index)
         if metadataName == 'metadata' then
           return metadata
         else
@@ -61,7 +64,7 @@ return function(type, labels, data, pointers, prototype)
       if pointers[index] then 
         rawset(self, pointers[index], value)
       else
-        rawset(self, #self+1, value)
+        rawset(self, #self + 1, value)
         pointers[index] = #self
       end
     end

@@ -7,8 +7,8 @@ PATH = function(at, to) return (at or ' ') .. "." .. to end
 BASE = function(at, to) return (at or ' '):match('(.-)[^%.]+$') .. to end
 
 -- Functions used internally
-rid = require(BASE(..., 'libs.utils.rid'))
-import = require(BASE(..., 'libs.utils.import'))
+rid = require(BASE(..., 'lib.utils.rid'))
+import = require(BASE(..., 'lib.utils.import'))
 
 -- Compatibility
 local vlen = string.len(_VERSION)

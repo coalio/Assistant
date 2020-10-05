@@ -3,6 +3,7 @@
 
 local checkArguments = utils.checkArguments
 local raiseError = utils.raiseError
+local fallbacks = utils.fallbacks
 local parameterTypes = {
   'table',
   'string|number',
@@ -11,12 +12,21 @@ local parameterTypes = {
 }
 
 return function(data, column, value, position)
-  if checkArguments(data['_type']..':append', parameterTypes, {data, column, value, position}) == -1 then
+  parameters = {data, column, value, position}
+  if checkArguments((data['_type'] or 'sheet') .. ':append', parameterTypes, parameters) == -1 then
     return
   end
 
-  local columnPos = #data.columns+1
-  position = position or ((type(column)=='number' and column) or #data.columns['_metadata'].labels+1)
+  parameterFallbacks = {
+    -- not position and (column number or labels size + 1) or position
+    {
+      'position', not position, 
+      type(column)=='number' and column or #data.columns['_metadata'].labels + 1,
+      position
+    }
+  }
+  local position = fallbacks(parameterFallbacks)
+  local columnPos = #data.columns + 1
 
   -- Check arguments
   if column == nil or (type(column) ~= 'string' and type(column) ~= 'number') then
@@ -31,7 +41,8 @@ return function(data, column, value, position)
   end
   if #data.columns['_metadata'].labels+1 < position then
     raiseError(2, data['_name']..':append', {column, value, position},
-      'column position ' .. position .. ' is out of bounds (bound: ' .. #data.columns['_metadata'].labels+1 .. ')')
+      'column position ' .. position .. ' is out of bounds (bound: ' 
+      .. #data.columns['_metadata'].labels + 1 .. ')')
     return
   end
   

@@ -1,4 +1,4 @@
--- With.lua: with()
+-- with.lua: with()
 -- Merges tables, usually used for merging sets of functions
 
 return function(...)

@@ -1,4 +1,4 @@
--- Rid.lua: rid()
+-- rid.lua: rid()
 -- If its called without arguments, sets defined globals (including itself) to nil and proceeds to collect garbage
 -- Otherwise, sets _G[of] to nil
 
@@ -20,7 +20,7 @@ return function(of)
   local of = of or 'rid'
   _G[of] = ((of and nil) or (
     function() 
-      for _,v in pairs(ridOf) do 
+      for _, v in pairs(ridOf) do 
         _G[v] = nil
       end 
     end)())

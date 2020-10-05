@@ -2,5 +2,5 @@
 -- Sheet data action functions
 
 return {
-  select = require(BASE(..., 'select'))
-} 
+  select = require(BASE(..., 'select')),
+}

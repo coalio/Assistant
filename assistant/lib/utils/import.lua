@@ -1,4 +1,4 @@
--- Import.lua: import()
+-- import.lua: import()
 -- Imports a lua file safely
 
 return function(filename, path)
@@ -6,8 +6,8 @@ return function(filename, path)
   xpcall(
     function()
       file = require(path .. filename)
-    end
-    ,
+    end,
+    
     function(err)
       print('[Import.lua] error in ' .. filename)
       print(err:sub(1, 2540) .. ' ...')
