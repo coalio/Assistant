@@ -28,7 +28,7 @@ football = sheet:new(
   {data = data},
   {
     columns = { 'year', 'team', 'wins', 'draws', 'losses' }, -- Order columns like this
-    rows = {'FC1', 'FC2', 'FC3', 'RM1', 'RM2', 'RM3', 'CF1', 'CF2', 'CF3'} -- Give rows a name
+    rows = {'FC1', 'FC2', 'FC3', 'RM1', 'RM2', 'RM3', 'CF1', 'CF2', 'CF3'} -- Give rows a label
   }
 )
 
