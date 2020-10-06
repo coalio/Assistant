@@ -1,5 +1,5 @@
 -- sheet.print() is a very versatile function
--- Assistant has intelligent column/row naming that allows for things like this example
+-- Assistant has intelligent column/row naming that allows things like this example
 
 local sheet = require('assistant').sheet
 
@@ -28,7 +28,7 @@ football = sheet:new(
   {data = data},
   {
     columns = { 'year', 'team', 'wins', 'draws', 'losses' }, -- Order columns like this
-    rows = {'FC1', 'FC2', 'FC3', 'RM1', 'RM2', 'RM3', 'CF1', 'CF2', 'CF3'} -- Order rows like this
+    rows = {'FC1', 'FC2', 'FC3', 'RM1', 'RM2', 'RM3', 'CF1', 'CF2', 'CF3'} -- Give rows a label
   }
 )
 
@@ -47,7 +47,6 @@ football:append(
 )
 
 -- Print the data
-print('Football table!\n')
 football(-1, -1, -1, {
   {'index', 'year', 'team', 'wins', 'draws', 'losses'} -- Print only these columns and in this order
 }) -- football() is syntactic sugar for football:print()
