@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/coalio/Assistant/blob/master/docs/repo/assistant-brand-l.png">
+  <img id="thumbnail" src="https://github.com/coalio/Assistant/blob/master/docs/repo/assistant-brand-l.png">
 </div>
 
 -----------------
