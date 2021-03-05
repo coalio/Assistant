@@ -40,7 +40,7 @@ should include comments for each function/section
 
 Internal Assistant variables in the global scope are defined and documented in "definitions.lua"
 
-There's a fellow guidelines relating to code style to make Assistant source more readable:
+There's a few guidelines relating to code style to make Assistant source more readable:
 
 1.  Indents
       Using tabs, indents should be 2 spaces width
@@ -67,22 +67,19 @@ There's a fellow guidelines relating to code style to make Assistant source more
 6.  lower case / UPPER CASE
       Constants should be all upper case and snake case (CLASS_PATH)
       All variables are pascalCase
-      Names that are not variables are snake_case (for example, parameter type "named_args")
+      Parameter identifiers can be snake_case (for example, parameter type "named_args")
 
 7.  and-or ternary
       You should split these only if there's more than 1 conditional involved
         : (true and true or false) has 1 conditional
-        : ((false and true) or ((true==true and false) or true)) has 2 conditionals
+        : (false and true or (true==true and false or true)) has 2 conditionals
 
         Therefore you split it like this:
           (
-            (
-              false and true
-            )
+            false and true
             or (
-              (
-                true == true and false
-              )
+              true == true 
+	      and false
               or true
             )
           )
