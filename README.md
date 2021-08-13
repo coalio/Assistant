@@ -17,8 +17,6 @@ because Lua also deserves a nice data science and data analysis library.
 *I'm currently the only maintainer of this project*, but I would love your contributions
 and I'm currently looking for help.
 
-So far the library is getting at least one commit weekly, but we can make this to **two** if you contribute to build Assistant
-
 ## Currently implemented
 
 1. Label naming, be it strings, numbers, or a combination of both
