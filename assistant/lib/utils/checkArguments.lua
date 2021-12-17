@@ -1,7 +1,6 @@
 -- parameterCheck.lua: parameterCheck()
 -- Checks if all arguments passed to the function are valid
 
-local raiseError = require(BASE(..., 'raiseerror'))
 return function(functionName, types, parameters)
   for parameterIndex, parameter in pairs(parameters) do
     local lw = types[parameterIndex]:gsub('(.+)%|', '')
