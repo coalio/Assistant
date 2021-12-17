@@ -9,7 +9,7 @@
 
 ## What is Assistant?
 
-Assistant is a data science library in continuous development
+Assistant is a data science library for Lua 5.1+
 
 Assistant aspires to provide the tools required for real-world data management,
 because Lua also deserves a nice data science and data analysis library.
